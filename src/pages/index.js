@@ -5,8 +5,6 @@ import Layout from '@components/Layout';
 import Container from '@components/Container';
 import Button from '@components/Button';
 
-import products from '@data/products';
-
 import styles from '@styles/Page.module.scss';
 
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
@@ -15,7 +13,6 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 export default function Home({ home, products }) {
   const { heroLink, heroText, heroTitle, heroBackground } = home;
 
-  console.log(products);
   return (
     <Layout>
       <Head>
@@ -80,17 +77,13 @@ export async function getStaticProps() {
     query: gql`
       query PageHome {
         page(where: {slug: "home"}) {
-        id
-        heroLink
-        heroText
-        heroTitle
-        name
-        slug
-          heroBackground {
-            height
-            width
-            url
-          }
+          id
+          heroLink
+          heroText
+          heroTitle
+          name
+          slug
+          heroBackground 
         }
 
         products(first: 4) {
@@ -98,11 +91,7 @@ export async function getStaticProps() {
           name
           price
           slug
-          image {
-            height
-            width
-            url
-          }
+          image
         }
       }
     `,
