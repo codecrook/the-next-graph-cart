@@ -7,7 +7,8 @@ import Button from '@components/Button';
 
 import styles from '@styles/Page.module.scss';
 
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { client } from '@data/graphql-setup';
+import { gql } from '@apollo/client';
 
 
 export default function Home({ home, products }) {
@@ -69,10 +70,6 @@ export default function Home({ home, products }) {
 }
 
 export async function getStaticProps() {
-  const client = new ApolloClient({
-    uri: 'https://api-ap-south-1.hygraph.com/v2/cl8gb3itm4ban01ue537z7pay/master',
-    cache: new InMemoryCache(),
-  });
   const data = await client.query({
     query: gql`
       query PageHome {

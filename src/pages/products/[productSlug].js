@@ -7,7 +7,8 @@ import Button from '@components/Button';
 
 import styles from '@styles/Product.module.scss'
 
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { client } from '@data/graphql-setup';
+import { gql } from '@apollo/client';
 
 export default function Product({ product }) {
   return (
@@ -43,10 +44,6 @@ export default function Product({ product }) {
 }
 
 export async function getStaticProps({ params }) {
-  const client = new ApolloClient({
-    uri: 'https://api-ap-south-1.hygraph.com/v2/cl8gb3itm4ban01ue537z7pay/master',
-    cache: new InMemoryCache(),
-  });
   const data = await client.query({
     query: gql`
       query PageProduct($slug: String) {
@@ -76,10 +73,6 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const client = new ApolloClient({
-    uri: 'https://api-ap-south-1.hygraph.com/v2/cl8gb3itm4ban01ue537z7pay/master',
-    cache: new InMemoryCache(),
-  });
   const data = await client.query({
     query: gql`
       query PageProducts {
